@@ -12,7 +12,7 @@ sudo docker-compose up
 sudo docker-compose down
 ```
 
-## Running Sentinels
+### Running Sentinels
 
 Documentation [here](https://redis.io/topics/sentinel)
 
