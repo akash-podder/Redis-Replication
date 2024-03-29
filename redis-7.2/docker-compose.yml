@@ -35,6 +35,20 @@ services:
       - redis-0
     command: redis-server etc/redis/redis.conf
 
+  haproxy:
+    image: haproxytech/haproxy-alpine:2.9.6
+    container_name: haproxy
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - "6392:6392"
+    networks:
+      - redis-network
+    depends_on:
+      - redis-0
+      - redis-1
+      - redis-2
+
   
   # sentinel-0:
   #   image: redis:7.2-alpine
