@@ -49,13 +49,11 @@ services:
       - redis-1
       - redis-2
 
-  
   # sentinel-0:
-  #   image: redis:7.2-alpine
+  #   build:
+  #     context: ./clustering/redis-sentinel
+  #   image: sentinel-7.2-custom
   #   container_name: sentinel-0
-  #   volumes:
-  #     - ./clustering/sentinel-0/sentinel.conf:/etc/redis/sentinel.conf
-  #   command: redis-sentinel /etc/redis/sentinel.conf
   #   networks:
   #     - redis-network
   #   depends_on:
@@ -64,11 +62,10 @@ services:
   #     - redis-2
 
   # sentinel-1:
-  #   image: redis:7.2-alpine
+  #   build:
+  #     context: ./clustering/redis-sentinel
+  #   image: sentinel-7.2-custom
   #   container_name: sentinel-1
-  #   volumes:
-  #     - ./clustering/sentinel-1/sentinel.conf:/etc/redis/sentinel.conf
-  #   command: redis-sentinel /etc/redis/sentinel.conf
   #   networks:
   #     - redis-network
   #   depends_on:
@@ -77,11 +74,10 @@ services:
   #     - redis-2
 
   # sentinel-2:
-  #   image: redis:7.2-alpine
+  #   build:
+  #     context: ./clustering/redis-sentinel
+  #   image: sentinel-7.2-custom
   #   container_name: sentinel-2
-  #   volumes:
-  #     - ./clustering/sentinel-2/sentinel.conf:/etc/redis/sentinel.conf
-  #   command: redis-sentinel /etc/redis/sentinel.conf
   #   networks:
   #     - redis-network
   #   depends_on:
@@ -93,3 +89,4 @@ services:
 networks:
   redis-network:
     driver: bridge
+    external: true
