@@ -49,41 +49,41 @@ services:
       - redis-1
       - redis-2
 
-  # sentinel-0:
-  #   build:
-  #     context: ./clustering/redis-sentinel
-  #   image: sentinel-7.2-custom
-  #   container_name: sentinel-0
-  #   networks:
-  #     - redis-network
-  #   depends_on:
-  #     - redis-0
-  #     - redis-1
-  #     - redis-2
+  sentinel-0:
+    build:
+      context: ./clustering/redis-sentinel-docker-config
+    image: sentinel-7.2-custom
+    container_name: sentinel-0
+    networks:
+      - redis-network
+    depends_on:
+      - redis-0
+      - redis-1
+      - redis-2
 
-  # sentinel-1:
-  #   build:
-  #     context: ./clustering/redis-sentinel
-  #   image: sentinel-7.2-custom
-  #   container_name: sentinel-1
-  #   networks:
-  #     - redis-network
-  #   depends_on:
-  #     - redis-0
-  #     - redis-1
-  #     - redis-2
+  sentinel-1:
+    build:
+      context: ./clustering/redis-sentinel-docker-config
+    image: sentinel-7.2-custom
+    container_name: sentinel-1
+    networks:
+      - redis-network
+    depends_on:
+      - redis-0
+      - redis-1
+      - redis-2
 
-  # sentinel-2:
-  #   build:
-  #     context: ./clustering/redis-sentinel
-  #   image: sentinel-7.2-custom
-  #   container_name: sentinel-2
-  #   networks:
-  #     - redis-network
-  #   depends_on:
-  #     - redis-0
-  #     - redis-1
-  #     - redis-2
+  sentinel-2:
+    build:
+      context: ./clustering/redis-sentinel-docker-config
+    image: sentinel-7.2-custom
+    container_name: sentinel-2
+    networks:
+      - redis-network
+    depends_on:
+      - redis-0
+      - redis-1
+      - redis-2
 
 
 networks:
