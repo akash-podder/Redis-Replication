@@ -132,9 +132,15 @@ redis-cli -p 5000
 info
 sentinel master mymaster
 
-# clean up 
-
+# clean up
 sudo docker rm -f redis-0 redis-1 redis-2
 sudo docker rm -f sentinel-0 sentinel-1 sentinel-2
 
+```
+
+## Running HAProxy
+```
+# in HAProxy-2.9.6 --> be Careful with "Space & Enter" after "10s"(any seconds) line... Always Place "Enter" after LASTLINE of "Seconds" in Configuration File
+
+sudo docker run -it --rm --name haproxy-container --net redis-72_redis-network -v ${PWD}:/usr/local/etc/haproxy/ -p 6392:6392 haproxytech/haproxy-alpine:2.9.6
 ```
