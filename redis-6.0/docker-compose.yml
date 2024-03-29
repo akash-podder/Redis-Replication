@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  redis-0:
+    image:
+      redis:6.0-alpine
+    container_name: redis-0
+    volumes:
+      - ./clustering/redis-0/redis.conf:/data/etc/redis/redis.conf
+    networks:
+      - redis-network
+    command: redis-server etc/redis/redis.conf
+  
+  redis-1:
+    image:
+      redis:6.0-alpine
+    container_name: redis-1
+    volumes:
+      - ./clustering/redis-1/redis.conf:/data/etc/redis/redis.conf
+    networks:
+      - redis-network
+    depends_on:
+        - redis-0
+    command: redis-server etc/redis/redis.conf
+  
+  redis-2:
+    image:
+      redis:6.0-alpine
+    container_name: redis-2
+    volumes:
+      - ./clustering/redis-2/redis.conf:/data/etc/redis/redis.conf
+    networks:
+      - redis-network
+    depends_on:
+      - redis-0
+    command: redis-server etc/redis/redis.conf
+
+networks:
+  redis-network:
+    driver: bridge
