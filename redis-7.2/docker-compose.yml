@@ -8,7 +8,8 @@ services:
     volumes:
       - ./clustering/redis-0/redis.conf:/data/etc/redis/redis.conf
     networks:
-      - redis-network
+      redis-network:
+        ipv4_address: 192.168.144.2
     command: redis-server etc/redis/redis.conf
   
   redis-1:
@@ -18,7 +19,8 @@ services:
     volumes:
       - ./clustering/redis-1/redis.conf:/data/etc/redis/redis.conf
     networks:
-      - redis-network
+      redis-network:
+        ipv4_address: 192.168.144.3
     depends_on:
         - redis-0
     command: redis-server etc/redis/redis.conf
@@ -30,24 +32,11 @@ services:
     volumes:
       - ./clustering/redis-2/redis.conf:/data/etc/redis/redis.conf
     networks:
-      - redis-network
+      redis-network:
+        ipv4_address: 192.168.144.4
     depends_on:
       - redis-0
     command: redis-server etc/redis/redis.conf
-
-  haproxy:
-    image: haproxytech/haproxy-alpine:2.9.6
-    container_name: haproxy
-    volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-    ports:
-      - "6392:6392"
-    networks:
-      - redis-network
-    depends_on:
-      - redis-0
-      - redis-1
-      - redis-2
 
   sentinel-0:
     build:
@@ -85,8 +74,27 @@ services:
       - redis-1
       - redis-2
 
+  haproxy:
+    image: haproxytech/haproxy-alpine:2.9.6
+    container_name: haproxy
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - "6392:6392"
+    networks:
+      - redis-network
+    depends_on:
+      - redis-0
+      - redis-1
+      - redis-2
+      - sentinel-0
+      - sentinel-1
+      - sentinel-2
 
 networks:
   redis-network:
     driver: bridge
-    external: true
+    ipam:
+     config:
+       - subnet: 192.168.144.0/20
+         gateway: 192.168.144.1
