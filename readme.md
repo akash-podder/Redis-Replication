@@ -2,7 +2,7 @@
 ## Replication
 
 
-Documentation [here](https://redis.io/topics/replication)
+Redis Replication Documentation [here](https://redis.io/topics/replication)
 
 ### Docker-Compose Command
 
@@ -14,7 +14,7 @@ sudo docker-compose down
 
 ### Running Sentinels
 
-Documentation [here](https://redis.io/topics/sentinel)
+Redis Sentinels Documentation [here](https://redis.io/docs/management/sentinel/)
 
 ```
 (in redis-7.2 give docker network's ip address instead of "redis-0")
