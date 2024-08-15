@@ -1,11 +1,8 @@
 
 ## Replication
-
-
-Redis Replication Documentation [here](https://redis.io/topics/replication)
+Redis-6.0 & Redis-7.2 versions Configuration are provided. Redis Replication Documentation [here](https://redis.io/topics/replication)
 
 ### Docker-Compose Command
-
 ```
 cd redis-7.2
 sudo docker-compose up
